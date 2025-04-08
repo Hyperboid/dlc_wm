@@ -7,7 +7,6 @@ end
 love.window.setTitle("DpWM")
 function Mod:init()
     SCREEN_WIDTH, SCREEN_HEIGHT = love.graphics.getDimensions()
-    SCREEN_WIDTH, SCREEN_HEIGHT = SCREEN_WIDTH, SCREEN_HEIGHT
     love.window.setTitle("DpWM")
     print("Loaded "..self.info.name.."!")
     self.stage = Stage(0,0, love.graphics.getDimensions())
@@ -41,7 +40,9 @@ end
 function Mod:postUpdate()
     ---@type Object|false
     CURRENT_WINDOW_CONTENTS = false
+    SCREEN_WIDTH, SCREEN_HEIGHT = love.graphics.getDimensions()
     self.stage:update()
+    SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
     CURRENT_WINDOW_CONTENTS = self.game_window_contents
 end
 
