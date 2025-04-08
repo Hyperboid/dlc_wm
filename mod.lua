@@ -35,6 +35,10 @@ function Mod:init()
         self.camera.width = 640
         self.camera.height = 480
     end)
+    pcall(function ()
+        local names = love.filesystem.getDirectoryItems("wallpapers")
+        self.wallpaper = love.graphics.newImage("wallpapers/"..Utils.pick(names))
+    end)
 end
 
 function Mod:postUpdate()
@@ -44,16 +48,23 @@ function Mod:postUpdate()
     self.stage:update()
     SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
     CURRENT_WINDOW_CONTENTS = self.game_window_contents
+    Kristal.showCursor()
 end
 
 function Mod:drawScreen(canvas)
     if not self.stage then return end -- TODO: Fix it so it doesn't call this while loading
     love.graphics.push()
     CURRENT_WINDOW_CONTENTS = false
+    if self.wallpaper then
+        love.graphics.push()
+        local w,h = self.wallpaper:getDimensions()
+        love.graphics.draw(self.wallpaper, 0,0,0, love.graphics.getWidth()/w, love.graphics.getHeight()/h)
+        love.graphics.pop()
+    end
     self.stage:draw()
     CURRENT_WINDOW_CONTENTS = self.game_window_contents
     love.graphics.pop()
-    if (not Kristal.Config["systemCursor"]) and (Kristal.Config["alwaysShowCursor"] or MOUSE_VISIBLE or true) and love.window then
+    if (not Kristal.Config["systemCursor"]) and (Kristal.Config["alwaysShowCursor"] or MOUSE_VISIBLE) and love.window then
         if Input.usingGamepad() then
             Draw.setColor(0, 0, 0, 0.5)
             love.graphics.circle("fill", Input.gamepad_cursor_x, Input.gamepad_cursor_y, Input.gamepad_cursor_size)
