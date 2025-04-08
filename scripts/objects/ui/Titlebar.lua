@@ -26,11 +26,21 @@ function Titlebar:getDrawColor()
     end
 end
 
+function Titlebar:mouseHovered(x,y)
+    if not x or not y then
+        local xa, ya = Input.getMousePosition()
+        x = x or xa
+        y = y or ya
+    end
+    x,y = self:getFullTransform():inverseTransformPoint(x,y)
+    return x >= 0 and y >= 0 and x <= self.width and y <= self.height
+end
+
 function Titlebar:update()
     super.update(self)
     local mx, my = Input.getMousePosition()
     if Input.mouseDown(1) then
-        if true then
+        if self:mouseHovered(self.last_mouse_x, self.last_mouse_y) and true then
             local dx, dy = mx - self.last_mouse_x, my - self.last_mouse_y
             self.window:move(dx, dy)
         end
