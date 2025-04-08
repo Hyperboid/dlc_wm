@@ -4,14 +4,10 @@ function Mod:getGameScale()
     return self.game_window.scale_x
 end
 
-function Mod:postInit()
-    -- Need to set this late so that the overworld camera doesn't get messed up
-    -- (It's okay if the battle camera does)
-    SCREEN_WIDTH, SCREEN_HEIGHT = love.graphics.getDimensions()
-    SCREEN_WIDTH, SCREEN_HEIGHT = SCREEN_WIDTH, SCREEN_HEIGHT
-end
 love.window.setTitle("DpWM")
 function Mod:init()
+    SCREEN_WIDTH, SCREEN_HEIGHT = love.graphics.getDimensions()
+    SCREEN_WIDTH, SCREEN_HEIGHT = SCREEN_WIDTH, SCREEN_HEIGHT
     love.window.setTitle("DpWM")
     print("Loaded "..self.info.name.."!")
     self.stage = Stage(0,0, love.graphics.getDimensions())
@@ -39,13 +35,18 @@ function Mod:init()
         return self.stage end
         return orig(dbg,...)
     end)
+    Utils.hook(World, "init", function (orig, self, ...)
+        orig(self,...)
+        ---@cast self World
+        self.camera.width = 640
+        self.camera.height = 480
+    end)
 end
 
 function Mod:postUpdate()
     ---@type Object|false
     CURRENT_WINDOW = false
     self.stage:update()
-    -- SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
     CURRENT_WINDOW = self.game_window
 end
 
