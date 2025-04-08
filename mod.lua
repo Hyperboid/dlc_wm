@@ -1,7 +1,7 @@
 Registry.registerGlobal("CURRENT_WINDOW_CONTENTS", false)
 
 function Mod:getGameScale()
-    return self.game_window.scale_x
+    return self.game_window.scale_x * self.game_window_contents.scale_x
 end
 
 love.window.setTitle("DpWM")
@@ -47,8 +47,6 @@ end
 function Mod:drawScreen(canvas)
     if not self.stage then return end -- TODO: Fix it so it doesn't call this while loading
     love.graphics.push()
-    -- love.graphics.scale(self:getGameScale())
-    -- Draw.draw(canvas)
     CURRENT_WINDOW_CONTENTS = false
     self.stage:draw()
     CURRENT_WINDOW_CONTENTS = self.game_window_contents
