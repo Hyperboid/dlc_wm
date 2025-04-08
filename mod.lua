@@ -22,14 +22,7 @@ function Mod:init()
             local off_x, off_y = CURRENT_WINDOW_CONTENTS:getScreenPos()
             return ((x-off_x)/self:getGameScale()),((y - off_y)/self:getGameScale())
         end
-        local off_x, off_y = Kristal.getSideOffsets()
-        local floor = math.floor
-        if relative then
-            floor = Utils.round
-            off_x, off_y = 0, 0
-        end
-        return floor((x - off_x) / Kristal.getGameScale()),
-               floor((y - off_y) / Kristal.getGameScale())
+        do return x,y end
     end)
     Utils.hook(DebugSystem, "getStage", function (orig, dbg, ...)
         if DEBUG_RENDER then
@@ -60,7 +53,7 @@ function Mod:drawScreen(canvas)
     self.stage:draw()
     CURRENT_WINDOW_CONTENTS = self.game_window_contents
     love.graphics.pop()
-    if (not Kristal.Config["systemCursor"]) and (Kristal.Config["alwaysShowCursor"] or MOUSE_VISIBLE) and love.window then
+    if (not Kristal.Config["systemCursor"]) and (Kristal.Config["alwaysShowCursor"] or MOUSE_VISIBLE or true) and love.window then
         if Input.usingGamepad() then
             Draw.setColor(0, 0, 0, 0.5)
             love.graphics.circle("fill", Input.gamepad_cursor_x, Input.gamepad_cursor_y, Input.gamepad_cursor_size)
