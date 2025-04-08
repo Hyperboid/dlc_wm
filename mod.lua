@@ -4,6 +4,10 @@ function Mod:getGameScale()
     return self.game_window.scale_x * self.game_window_contents.scale_x
 end
 
+function Mod:postInit()
+    Game.stage:addChild(Callback{draw = function() love.graphics.clear() end}):setLayer(-10)
+end
+
 love.window.setTitle("DpWM")
 function Mod:init()
     SCREEN_WIDTH, SCREEN_HEIGHT = love.graphics.getDimensions()

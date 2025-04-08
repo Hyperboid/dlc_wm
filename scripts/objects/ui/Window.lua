@@ -30,7 +30,7 @@ end
 function Window:draw()
     Draw.setColor({self.titlebar:getDrawColor()})
     love.graphics.setLineWidth(4)
-    love.graphics.rectangle("line", 0,0,self.width,self.height)
+    love.graphics.rectangle("line", -2,-2,self.width+4,self.height+4)
     super.draw(self)
 end
 
