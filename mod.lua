@@ -48,7 +48,7 @@ function Mod:postUpdate()
     ---@type Object|false
     CURRENT_WINDOW_CONTENTS = false
     self.stage:update()
-    CURRENT_WINDOW_CONTENTS = self.game_window
+    CURRENT_WINDOW_CONTENTS = self.game_window_contents
 end
 
 function Mod:drawScreen(canvas)
@@ -58,7 +58,7 @@ function Mod:drawScreen(canvas)
     -- Draw.draw(canvas)
     CURRENT_WINDOW_CONTENTS = false
     self.stage:draw()
-    CURRENT_WINDOW_CONTENTS = self.game_window
+    CURRENT_WINDOW_CONTENTS = self.game_window_contents
     love.graphics.pop()
     if (not Kristal.Config["systemCursor"]) and (Kristal.Config["alwaysShowCursor"] or MOUSE_VISIBLE) and love.window then
         if Input.usingGamepad() then
