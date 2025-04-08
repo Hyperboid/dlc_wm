@@ -16,6 +16,10 @@ function Mod:init()
     self.stage = Stage(0,0, love.graphics.getDimensions())
     self.game_window_contents = CanvasContainer(SCREEN_CANVAS)
     self.game_window_contents.debug_select = false
+    -- TODO: Allow resizing window without console commands
+    if love.graphics.getHeight() > 960 then
+        self.game_window_contents:setScale(2)
+    end
     self.game_window = Window(self.game_window_contents, 32,32)
     self.game_window.focused = true
     self.stage:addChild(self.game_window)
