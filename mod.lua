@@ -38,6 +38,8 @@ function Mod:init()
     pcall(function ()
         local names = love.filesystem.getDirectoryItems("wallpapers")
         self.wallpaper = love.graphics.newImage("wallpapers/"..Utils.pick(names))
+        -- Linear for downscaling, nearest for upscaling.
+        self.wallpaper:setFilter("linear", "nearest")
     end)
 end
 
