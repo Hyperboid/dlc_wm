@@ -19,7 +19,7 @@ function Mod:init()
     -- TODO: Allow resizing window without console commands
     if love.graphics.getHeight() > 960 then
         self.game_window_contents:setScale(2)
-    elseif love.graphics.getHeight() < 540 then
+    elseif love.graphics.getHeight() <= 540 then
         self.game_window_contents:setScale(0.5)
     end
     self.game_window = Window(self.game_window_contents, 32,32)
