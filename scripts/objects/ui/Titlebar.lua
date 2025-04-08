@@ -43,6 +43,7 @@ function Titlebar:update()
         if self:mouseHovered(self.last_mouse_x, self.last_mouse_y) and true then
             local dx, dy = mx - self.last_mouse_x, my - self.last_mouse_y
             self.window:move(dx, dy)
+            self.window.y = math.min(math.max(self.window.y, 0), SCREEN_HEIGHT-34)
         end
     end
     self.last_mouse_x, self.last_mouse_y = mx, my
