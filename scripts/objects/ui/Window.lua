@@ -1,4 +1,5 @@
 ---@class Window: Component
+---@overload fun(contents,x?,y?):Window
 local Window, super = Class(Component)
 
 ---@param contents Object
@@ -11,6 +12,7 @@ function Window:init(contents, x,y)
     self.titlebar = self:addChild(Titlebar(self))
     self.contents = self:addChild(contents)
     self.title = "???"
+    self.debug_select = false
 end
 
 function Window:getTitle()
@@ -25,12 +27,15 @@ function Window:close()
     self:remove()
 end
 
-function Window:getDebugRectangle()
-    local rect = super.getDebugRectangle(self)
-    if self.contents.game_screen then
-        return {rect[1] - (self.x/self.scale_x), rect[2] - (self.y/self.scale_y), rect[3], rect[4]}
-    end
-    return rect
+function Window:draw()
+    Draw.setColor({self.titlebar:getDrawColor()})
+    love.graphics.setLineWidth(4)
+    love.graphics.rectangle("line", 0,0,self.width,self.height)
+    super.draw(self)
+end
+
+function Window:isWindowFocused()
+    return self.focused or false
 end
 
 return Window

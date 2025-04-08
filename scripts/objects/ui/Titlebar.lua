@@ -10,12 +10,20 @@ function Titlebar:init(window)
 end
 
 function Titlebar:draw()
-    Draw.setColor(COLORS.white)
     love.graphics.rectangle("fill", 0,0,self.width, self.height)
     Draw.setColor(COLORS.black)
     love.graphics.setFont(Assets.getFont("main"))
     love.graphics.print(self.window:getTitle(), 6, 2)
     super.draw(self)
+end
+
+function Titlebar:getDrawColor()
+    local r, g, b, a = super.getDrawColor(self)
+    if self.window:isWindowFocused() then
+        return r, g, b, a
+    else
+        return r*.8, g*.8, b*.8, a
+    end
 end
 
 function Titlebar:update()

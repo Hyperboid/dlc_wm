@@ -13,7 +13,8 @@ function Mod:init()
     self.stage = Stage(0,0, love.graphics.getDimensions())
     self.game_window_contents = CanvasContainer(SCREEN_CANVAS)
     self.game_window_contents.debug_select = false
-    self.game_window = Window(self.game_window_contents)
+    self.game_window = Window(self.game_window_contents, 32,32)
+    self.game_window.focused = true
     self.stage:addChild(self.game_window)
     Utils.hook(Input, "getMousePosition", function(orig, x, y, relative)
         x = x or love.mouse.getX()
@@ -63,4 +64,8 @@ function Mod:drawScreen(canvas)
         end
     end
     return true
+end
+
+function Mod:onKeyPressed(key)
+    return not self.game_window:isWindowFocused()
 end
