@@ -1,4 +1,4 @@
-Registry.registerGlobal("CURRENT_WINDOW", false)
+Registry.registerGlobal("CURRENT_WINDOW_CONTENTS", false)
 
 function Mod:getGameScale()
     return self.game_window.scale_x
@@ -11,14 +11,15 @@ function Mod:init()
     love.window.setTitle("DpWM")
     print("Loaded "..self.info.name.."!")
     self.stage = Stage(0,0, love.graphics.getDimensions())
-    self.game_window = CanvasContainer(SCREEN_CANVAS)
+    self.game_window_contents = CanvasContainer(SCREEN_CANVAS)
+    self.game_window_contents.debug_select = false
+    self.game_window = Window(self.game_window_contents)
     self.stage:addChild(self.game_window)
     Utils.hook(Input, "getMousePosition", function(orig, x, y, relative)
         x = x or love.mouse.getX()
         y = y or love.mouse.getY()
-        if CURRENT_WINDOW then
-            local off_x, off_y = CURRENT_WINDOW:getScreenPos()
-            -- off_x, off_y = off_x * 2, off_y * 2
+        if CURRENT_WINDOW_CONTENTS then
+            local off_x, off_y = CURRENT_WINDOW_CONTENTS:getScreenPos()
             return ((x-off_x)/self:getGameScale()),((y - off_y)/self:getGameScale())
         end
         local off_x, off_y = Kristal.getSideOffsets()
@@ -45,9 +46,9 @@ end
 
 function Mod:postUpdate()
     ---@type Object|false
-    CURRENT_WINDOW = false
+    CURRENT_WINDOW_CONTENTS = false
     self.stage:update()
-    CURRENT_WINDOW = self.game_window
+    CURRENT_WINDOW_CONTENTS = self.game_window
 end
 
 function Mod:drawScreen(canvas)
@@ -55,9 +56,9 @@ function Mod:drawScreen(canvas)
     love.graphics.push()
     -- love.graphics.scale(self:getGameScale())
     -- Draw.draw(canvas)
-    CURRENT_WINDOW = false
+    CURRENT_WINDOW_CONTENTS = false
     self.stage:draw()
-    CURRENT_WINDOW = self.game_window
+    CURRENT_WINDOW_CONTENTS = self.game_window
     love.graphics.pop()
     if (not Kristal.Config["systemCursor"]) and (Kristal.Config["alwaysShowCursor"] or MOUSE_VISIBLE) and love.window then
         if Input.usingGamepad() then

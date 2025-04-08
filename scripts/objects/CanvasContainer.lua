@@ -15,12 +15,8 @@ function CanvasContainer:draw()
     Draw.draw(self.canvas)
 end
 
-function CanvasContainer:getDebugRectangle()
-    local rect = super.getDebugRectangle(self)
-    if self.game_screen then
-        return {rect[1] - (self.x/self.scale_x), rect[2] - (self.y/self.scale_y), rect[3], rect[4]}
-    end
-    return rect
+function CanvasContainer:getTitle()
+    return "Dark Place REBIRTH"
 end
 
 return CanvasContainer
