@@ -39,6 +39,7 @@ function Mod:init()
         local names = love.filesystem.getDirectoryItems("wallpapers")
         self.wallpaper = love.graphics.newImage("wallpapers/"..Utils.pick(names))
         -- Linear for downscaling, nearest for upscaling.
+        -- TODO: Make this configurable
         self.wallpaper:setFilter("linear", "nearest")
     end)
 end
