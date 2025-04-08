@@ -6,7 +6,8 @@ function Titlebar:init(window)
     super.init(self, FillSizing(), FixedSizing(34))
     self.window = window
     self:setPadding(6,2)
-    self.last_mouse_x, self.last_mouse_y = Input.getMousePosition()
+    self.drag_start_x, self.drag_start_y = Input.getMousePosition()
+    self.dragging = false
 end
 
 function Titlebar:draw()
@@ -36,17 +37,27 @@ function Titlebar:mouseHovered(x,y)
     return x >= 0 and y >= 0 and x <= self.width and y <= self.height
 end
 
+
+function Titlebar:updateDragging(mx,my)
+    self.window:setPosition(mx - self.drag_start_x, my - self.drag_start_y)
+    self.window.y = math.min(math.max(self.window.y, 0), SCREEN_HEIGHT-34)
+end
+
 function Titlebar:update()
     super.update(self)
     local mx, my = Input.getMousePosition()
-    if Input.mouseDown(1) then
-        if self:mouseHovered(self.last_mouse_x, self.last_mouse_y) and true then
-            local dx, dy = mx - self.last_mouse_x, my - self.last_mouse_y
-            self.window:move(dx, dy)
-            self.window.y = math.min(math.max(self.window.y, 0), SCREEN_HEIGHT-34)
+    if self.dragging then
+        self:updateDragging(mx,my)
+    end
+    if Input.mousePressed(1) then
+        if self:mouseHovered(mx,my) and true then
+            self.drag_start_x, self.drag_start_y = self.window:getFullTransform():inverseTransformPoint(mx, my)
+            self.dragging = true
         end
     end
-    self.last_mouse_x, self.last_mouse_y = mx, my
+    if Input.mouseReleased(1) then
+        self.dragging = false
+    end
 end
 
 return Titlebar
