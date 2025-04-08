@@ -13,6 +13,7 @@ function Titlebar:draw()
     Draw.setColor(COLORS.white)
     love.graphics.rectangle("fill", 0,0,self.width, self.height)
     Draw.setColor(COLORS.black)
+    love.graphics.setFont(Assets.getFont("main"))
     love.graphics.print(self.window:getTitle(), 6, 2)
     super.draw(self)
 end
