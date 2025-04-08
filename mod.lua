@@ -4,8 +4,8 @@ function Mod:getGameScale()
     return self.game_window.scale_x * self.game_window_contents.scale_x
 end
 
-function Mod:postInit()
-    Game.stage:addChild(Callback{draw = function() love.graphics.clear() end}):setLayer(-10)
+function Mod:preDraw()
+    love.graphics.clear()
 end
 
 love.window.setTitle("DpWM")
