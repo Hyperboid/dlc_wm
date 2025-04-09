@@ -1,24 +1,18 @@
-love.window.setTitle("DpWM")
-function Mod:init()
-    love.window.setTitle("DpWM")
-end
-
---[[
 Registry.registerGlobal("CURRENT_WINDOW_CONTENTS", false)
+local lib = {}
+Registry.registerGlobal("WM", lib)
+WM = lib
 
-function Mod:getGameScale()
+function lib:getGameScale()
     return self.game_window.scale_x * self.game_window_contents.scale_x
 end
 
-function Mod:preDraw()
+function lib:preDraw()
     love.graphics.clear()
 end
 
-love.window.setTitle("DpWM")
-function Mod:init()
+function lib:init()
     SCREEN_WIDTH, SCREEN_HEIGHT = love.graphics.getDimensions()
-    love.window.setTitle("DpWM")
-    print("Loaded "..self.info.name.."!")
     self.stage = Stage(0,0, love.graphics.getDimensions())
     self.game_window_contents = CanvasContainer(SCREEN_CANVAS)
     self.game_window_contents.debug_select = false
@@ -41,8 +35,7 @@ function Mod:init()
         do return x,y end
     end)
     Utils.hook(DebugSystem, "getStage", function (orig, dbg, ...)
-        if DEBUG_RENDER then
-        return self.stage end
+        if DEBUG_RENDER then return self.stage end
         return orig(dbg,...)
     end)
     Utils.hook(World, "init", function (orig, self, ...)
@@ -60,7 +53,7 @@ function Mod:init()
     end)
 end
 
-function Mod:postUpdate()
+function lib:postUpdate()
     ---@type Object|false
     CURRENT_WINDOW_CONTENTS = false
     SCREEN_WIDTH, SCREEN_HEIGHT = love.graphics.getDimensions()
@@ -70,7 +63,7 @@ function Mod:postUpdate()
     Kristal.showCursor()
 end
 
-function Mod:drawScreen(canvas)
+function lib:drawScreen(canvas)
     if not self.stage then return end -- TODO: Fix it so it doesn't call this while loading
     love.graphics.push()
     CURRENT_WINDOW_CONTENTS = false
@@ -97,7 +90,8 @@ function Mod:drawScreen(canvas)
     return true
 end
 
-function Mod:onKeyPressed(key)
+function lib:onKeyPressed(key)
     return not self.game_window:isWindowFocused()
 end
---]]
+
+return lib
