@@ -15,8 +15,4 @@ function CanvasContainer:draw()
     Draw.draw(self.canvas)
 end
 
-function CanvasContainer:getTitle()
-    return "Dark Place REBIRTH"
-end
-
 return CanvasContainer

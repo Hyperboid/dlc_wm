@@ -12,9 +12,17 @@ end
 
 function Titlebar:draw()
     love.graphics.rectangle("fill", 0,0,self.width, self.height)
-    Draw.setColor(COLORS.black)
     love.graphics.setFont(Assets.getFont("main"))
-    love.graphics.print(self.window:getTitle(), 6, 2)
+    local icon = self.window:getIcon()
+    love.graphics.push()
+    love.graphics.translate(6,0)
+    if icon then
+        Draw.draw(icon, 0,0,0, 32/icon:getWidth(), 32/icon:getHeight())
+        love.graphics.translate(40,0)
+    end
+    Draw.setColor(COLORS.black)
+    love.graphics.print(self.window:getTitle(), 0, 0)
+    love.graphics.pop()
     super.draw(self)
 end
 

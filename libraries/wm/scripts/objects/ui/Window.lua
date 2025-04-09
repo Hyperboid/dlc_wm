@@ -14,12 +14,21 @@ function Window:init(contents, x,y)
     self.contents = self:addChild(contents)
     self.title = "???"
     self.debug_select = false
+    ---@type love.Image?
+    self.icon = nil
 end
 
 function Window:getTitle()
     ---@diagnostic disable-next-line: undefined-field
     if self.contents.getTitle then return self.contents:getTitle() end
     return self.title
+end
+
+---@return love.Image?
+function Window:getIcon()
+    ---@diagnostic disable-next-line: undefined-field
+    if self.contents.getIcon then return self.contents:getIcon() end
+    return self.icon
 end
 
 ---@param parent Desktop|Window

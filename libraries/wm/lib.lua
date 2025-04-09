@@ -26,6 +26,14 @@ function lib:init()
         self.game_window_contents:setScale(0.5)
     end
     self.game_window = Window(self.game_window_contents, 32,32)
+
+    if Kristal.funny_titles then
+        local funnytitle_rand = love.math.random(#Kristal.funny_titles)
+        local funnytitle = Kristal.funny_titles[funnytitle_rand] or "Depa Runts"
+        local funnyicon = Assets.getTexture("kristal/icons/icon_"..tostring(funnytitle_rand)) or Kristal.icon
+        self.game_window.title = funnytitle
+        self.game_window.icon = funnyicon
+    end
     self.game_window.focused = true
     self.desktop:spawnWindow(self.game_window)
     self.stage:addChild(self.desktop)
