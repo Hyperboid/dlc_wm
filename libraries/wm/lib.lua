@@ -1,3 +1,5 @@
+assert(KRISTAL_EVENT.drawScreen, "drawScreen Kristal event not detected! This library only works in Dark Place right now.")
+
 Registry.registerGlobal("CURRENT_WINDOW_CONTENTS", false)
 local lib = {}
 Registry.registerGlobal("WM", lib)
