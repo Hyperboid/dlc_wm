@@ -38,6 +38,9 @@ function Window:close()
 end
 
 function Window:draw()
+    Draw.setColor(COLORS.black)
+    love.graphics.setLineWidth(8)
+    love.graphics.rectangle("line", -2,-2,self.width+4,self.height+4)
     Draw.setColor({self.titlebar:getDrawColor()})
     love.graphics.setLineWidth(4)
     love.graphics.rectangle("line", -2,-2,self.width+4,self.height+4)
