@@ -72,11 +72,9 @@ function Desktop:getHoveredWindow(x,y)
             -- TODO: Find out why game window doesn't need this
         end
         if mx >= 0 and my >= 0 and mx <= window.width and my <= window.height then
-            print("Hovered", window:getTitle())
             return window
         end
     end
-    print(nil)
 end
 
 ---@param object Object
