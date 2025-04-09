@@ -14,6 +14,7 @@ function Window:init(contents, x,y)
     self.contents = self:addChild(contents)
     self.title = "???"
     self.debug_select = false
+    self.contents:setCutout(0,0,0,0)
 end
 
 function Window:getTitle()
