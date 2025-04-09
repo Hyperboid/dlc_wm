@@ -8,10 +8,8 @@ end
 
 function Desktop:update()
     super.update(self)
-    if self.parent:includes(Stage) then
-        self.height = love.graphics.getHeight() - 50
-        self.width = love.graphics.getWidth()
-    end
+    self.height = love.graphics.getHeight() - 50
+    self.width = love.graphics.getWidth()
     if Input.mousePressed(1) then
         self:focusWindow(self:getHoveredWindow())
     end
