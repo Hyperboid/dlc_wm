@@ -3,7 +3,7 @@ local Titlebar, super = Class(Component)
 
 ---@param window Window
 function Titlebar:init(window)
-    super.init(self, FillSizing(), FixedSizing(34))
+    super.init(self, FillSizing(), FixedSizing(42))
     self.window = window
     self:setPadding(6,2)
     self.drag_start_x, self.drag_start_y = Input.getMousePosition()
@@ -15,7 +15,7 @@ function Titlebar:draw()
     love.graphics.setFont(Assets.getFont("main"))
     local icon = self.window:getIcon()
     love.graphics.push()
-    love.graphics.translate(6,0)
+    love.graphics.translate(6,(self.height-34)/2)
     if icon then
         Draw.draw(icon, 0,0,0, 32/icon:getWidth(), 32/icon:getHeight())
         love.graphics.translate(40,0)
