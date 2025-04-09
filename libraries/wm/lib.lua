@@ -9,10 +9,6 @@ function lib:getGameScale()
     return self.game_window.scale_x * self.game_window_contents.scale_x
 end
 
-function lib:preDraw()
-    love.graphics.clear()
-end
-
 function lib:init()
     SCREEN_WIDTH, SCREEN_HEIGHT = love.graphics.getDimensions()
     self.stage = Stage(0,0, love.graphics.getDimensions())

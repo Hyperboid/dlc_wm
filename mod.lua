@@ -15,3 +15,26 @@ function Mod:init()
     end
     WM.desktop:focusWindow(WM.game_window)
 end
+
+function Mod:preDraw()
+    if pcall(function () assert(Game.world.map.data.properties.transparent) end) then
+        love.graphics.clear()
+    end
+end
+
+
+function Mod:onDPMbStart()
+    local sw, sh = love.graphics.getDimensions()
+    WM.game_window:slideTo((sw/2) - (WM.game_window:getScaledWidth()/2), (sh/2) - (WM.game_window:getScaledHeight()/2), .5, "out-quad")
+    WM.game_window_contents.getTitle = function() return "" end
+    WM.game_window_contents.getIcon = function() end
+    self.prev_wallpaper = WM.wallpaper
+    WM.wallpaper = nil
+end
+
+function Mod:onDPMbEnd()
+    WM.wallpaper = self.prev_wallpaper
+    self.prev_wallpaper = nil
+    WM.game_window_contents.getTitle = nil
+    WM.game_window_contents.getIcon = nil
+end
