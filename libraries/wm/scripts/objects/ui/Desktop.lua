@@ -46,4 +46,51 @@ function Desktop:draw()
     super.draw(self)
 end
 
+---@param parent Object
+---@param child Object
+---@return boolean
+local function is_parented_to(parent, child)
+    if parent == child.parent then return true
+    elseif child.parent then return is_parented_to(parent, child.parent)
+    else return false end
+end
+
+function Desktop:getHoveredWindow(x,y)
+    if not x or not y then
+        local xa, ya = love.mouse.getPosition()
+        x = x or xa
+        y = y or ya
+    end
+    for i = #self.children, 1, -1 do
+        local window = self.children[i]
+        local mx, my = x,y
+        mx,my = window:getFullTransform():inverseTransformPoint(x,y)
+        if window ~= WM.game_window then
+            -- TODO: Find out why game window doesn't need this
+        end
+        if mx >= 0 and my >= 0 and mx <= window.width and my <= window.height then
+            print("Hovered", window:getTitle())
+            return window
+        end
+    end
+    print(nil)
+end
+
+---@param object Object
+---@param x number
+---@param y number
+function Desktop:isHovering(object, x,y)
+    if not x or not y then
+        local xa, ya = love.mouse.getPosition()
+        x = x or xa
+        y = y or ya
+    end
+    if not is_parented_to(self:getHoveredWindow(x,y), object) then return false end
+
+    x,y = object:getFullTransform():inverseTransformPoint(x,y)
+    
+    return x >= 0 and y >= 0 and x <= object.width and y <= object.height
+end
+
+
 return Desktop
