@@ -16,6 +16,7 @@ end
 function lib:init()
     SCREEN_WIDTH, SCREEN_HEIGHT = love.graphics.getDimensions()
     self.stage = Stage(0,0, love.graphics.getDimensions())
+    self.desktop = Desktop()
     self.game_window_contents = CanvasContainer(SCREEN_CANVAS)
     self.game_window_contents.debug_select = false
     -- TODO: Allow resizing window without console commands
@@ -26,7 +27,8 @@ function lib:init()
     end
     self.game_window = Window(self.game_window_contents, 32,32)
     self.game_window.focused = true
-    self.stage:addChild(self.game_window)
+    self.desktop:addChild(self.game_window)
+    self.stage:addChild(self.desktop)
     Utils.hook(Input, "getMousePosition", function(orig, x, y, relative)
         x = x or love.mouse.getX()
         y = y or love.mouse.getY()
@@ -69,12 +71,6 @@ function lib:drawScreen(canvas)
     if not self.stage then return end -- TODO: Fix it so it doesn't call this while loading
     love.graphics.push()
     CURRENT_WINDOW_CONTENTS = false
-    if self.wallpaper then
-        love.graphics.push()
-        local w,h = self.wallpaper:getDimensions()
-        love.graphics.draw(self.wallpaper, 0,0,0, love.graphics.getWidth()/w, love.graphics.getHeight()/h)
-        love.graphics.pop()
-    end
     self.stage:draw()
     CURRENT_WINDOW_CONTENTS = self.game_window_contents
     love.graphics.pop()

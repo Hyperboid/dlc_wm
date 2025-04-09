@@ -1,4 +1,5 @@
 ---@class Window: Component
+---@field desktop Desktop
 ---@overload fun(contents,x?,y?):Window
 local Window, super = Class(Component)
 
@@ -19,6 +20,15 @@ function Window:getTitle()
     ---@diagnostic disable-next-line: undefined-field
     if self.contents.getTitle then return self.contents:getTitle() end
     return self.title
+end
+
+---@param parent Desktop|Window
+function Window:onAdd(parent)
+    if parent:includes(Desktop) then
+        self.desktop = parent
+    elseif parent.desktop then
+        self.desktop = parent.desktop
+    end
 end
 
 function Window:close()
