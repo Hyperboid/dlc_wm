@@ -11,13 +11,16 @@ function Desktop:update()
     self.width = love.graphics.getWidth()
 end
 
-function Desktop:draw()
+function Desktop:drawWallpaper()
     if WM.wallpaper then
         love.graphics.push()
         local w,h = WM.wallpaper:getDimensions()
         love.graphics.draw(WM.wallpaper, 0,0,0, love.graphics.getWidth()/w, love.graphics.getHeight()/h)
         love.graphics.pop()
     end
+end
+function Desktop:draw()
+    self:drawWallpaper()
     super.draw(self)
 end
 
