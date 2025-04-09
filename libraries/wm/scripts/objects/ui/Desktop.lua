@@ -18,8 +18,6 @@ function Desktop:draw()
         love.graphics.draw(WM.wallpaper, 0,0,0, love.graphics.getWidth()/w, love.graphics.getHeight()/h)
         love.graphics.pop()
     end
-    love.graphics.setPointSize(10)
-    love.graphics.points(love.mouse.getPosition())
     super.draw(self)
 end
 
