@@ -24,8 +24,11 @@ end
 ---@generic T: Window
 ---@param window T
 ---@return T window
-function Desktop:spawnWindow(window)
+function Desktop:spawnWindow(window, x,y)
     window:setParent(self)
+    if x or y then
+        window:setPosition(x,y)
+    end
     self:focusWindow(window)
     return window
 end

@@ -1,7 +1,7 @@
 ---@class Titlebar: Component
 local Titlebar, super = Class(Component)
 
----@param window
+---@param window Window
 function Titlebar:init(window)
     super.init(self, FillSizing(), FixedSizing(34))
     self.window = window
@@ -51,6 +51,7 @@ function Titlebar:update()
     end
     if Input.mousePressed(1) then
         if self:mouseHovered(mx,my) and true then
+            self.window.desktop:focusWindow(self.window)
             self.drag_start_x, self.drag_start_y = self.window:getFullTransform():inverseTransformPoint(mx, my)
             self.dragging = true
         end
