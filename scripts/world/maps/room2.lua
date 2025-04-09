@@ -1,7 +1,8 @@
 return {
-  version = "1.5",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.8.4",
+  tiledversion = "1.11.2",
+  class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 20,
@@ -10,6 +11,7 @@ return {
   tileheight = 40,
   nextlayerid = 6,
   nextobjectid = 12,
+  backgroundcolor = { 0, 0, 0 },
   properties = {
     ["name"] = "Test Map - Room 2"
   },
@@ -17,7 +19,8 @@ return {
     {
       name = "castle",
       firstgid = 1,
-      filename = "../tilesets/castle.tsx"
+      filename = "../tilesets/castle.tsx",
+      exportfilename = "../tilesets/castle.lua"
     }
   },
   layers = {
@@ -29,6 +32,7 @@ return {
       height = 12,
       id = 1,
       name = "tiles",
+      class = "",
       visible = true,
       opacity = 1,
       offsetx = 0,
@@ -60,6 +64,7 @@ return {
       height = 12,
       id = 2,
       name = "decal",
+      class = "",
       visible = true,
       opacity = 1,
       offsetx = 0,
@@ -88,6 +93,7 @@ return {
       draworder = "topdown",
       id = 3,
       name = "collision",
+      class = "",
       visible = true,
       opacity = 0.5,
       offsetx = 0,
@@ -168,6 +174,7 @@ return {
       draworder = "topdown",
       id = 4,
       name = "markers",
+      class = "",
       visible = true,
       opacity = 1,
       offsetx = 0,
@@ -209,6 +216,7 @@ return {
       draworder = "topdown",
       id = 5,
       name = "objects",
+      class = "",
       visible = true,
       opacity = 1,
       offsetx = 0,
