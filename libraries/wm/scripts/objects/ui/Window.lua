@@ -45,7 +45,7 @@ function Window:draw()
 end
 
 function Window:isWindowFocused()
-    return self.focused or false
+    return self.desktop and self.desktop.focused_window == self
 end
 
 return Window

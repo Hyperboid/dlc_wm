@@ -27,7 +27,7 @@ function lib:init()
     end
     self.game_window = Window(self.game_window_contents, 32,32)
     self.game_window.focused = true
-    self.desktop:addChild(self.game_window)
+    self.desktop:spawnWindow(self.game_window)
     self.stage:addChild(self.desktop)
     Utils.hook(Input, "getMousePosition", function(orig, x, y, relative)
         x = x or love.mouse.getX()
@@ -71,7 +71,9 @@ function lib:drawScreen(canvas)
     if not self.stage then return end -- TODO: Fix it so it doesn't call this while loading
     love.graphics.push()
     CURRENT_WINDOW_CONTENTS = false
+    SCREEN_WIDTH, SCREEN_HEIGHT = love.graphics.getDimensions()
     self.stage:draw()
+    SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
     CURRENT_WINDOW_CONTENTS = self.game_window_contents
     love.graphics.pop()
     if (not Kristal.Config["systemCursor"]) and (Kristal.Config["alwaysShowCursor"] or MOUSE_VISIBLE) and love.window then

@@ -1,4 +1,5 @@
 ---@class Desktop: Object
+---@overload fun(): Desktop
 local Desktop, super = Class(Object)
 
 function Desktop:init(x,y)
@@ -19,6 +20,24 @@ function Desktop:drawWallpaper()
         love.graphics.pop()
     end
 end
+
+---@generic T: Window
+---@param window T
+---@return T window
+function Desktop:spawnWindow(window)
+    window:setParent(self)
+    self:focusWindow(window)
+    return window
+end
+
+function Desktop:focusWindow(window)
+    self.focused_window = window
+    if not window then return end
+    window.layer = 10000
+    self:sortChildren()
+    window.layer = 0
+end
+
 function Desktop:draw()
     self:drawWallpaper()
     super.draw(self)
