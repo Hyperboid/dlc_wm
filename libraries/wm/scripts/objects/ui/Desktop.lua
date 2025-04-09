@@ -89,7 +89,7 @@ function Desktop:isHovering(object, x,y)
     if not is_parented_to(self:getHoveredWindow(x,y), object) then return false end
 
     x,y = object:getFullTransform():inverseTransformPoint(x,y)
-    
+
     return x >= 0 and y >= 0 and x <= object.width and y <= object.height
 end
 
