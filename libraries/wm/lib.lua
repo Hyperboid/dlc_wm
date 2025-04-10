@@ -34,6 +34,7 @@ function lib:init()
     self.desktop:spawnWindow(self.game_window)
     self.stage:addChild(self.desktop)
     Utils.hook(Input, "getMousePosition", function(orig, x, y, relative)
+        if not self.enabled then return orig(x,y,relative) end
         x = x or love.mouse.getX()
         y = y or love.mouse.getY()
         if CURRENT_WINDOW_CONTENTS then
@@ -52,6 +53,7 @@ function lib:init()
         self.camera.width = 640
         self.camera.height = 480
     end)
+    SCREEN_WIDTH, SCREEN_HEIGHT = 640,480
     pcall(function ()
         local names = love.filesystem.getDirectoryItems("wallpapers")
         self.wallpaper = love.graphics.newImage("wallpapers/"..Utils.pick(names))
@@ -59,9 +61,11 @@ function lib:init()
         -- TODO: Make this configurable
         self.wallpaper:setFilter("linear", "nearest")
     end)
+    self.enabled = true
 end
 
 function lib:postUpdate()
+    if not self.enabled then return end
     ---@type Object|false
     CURRENT_WINDOW_CONTENTS = false
     SCREEN_WIDTH, SCREEN_HEIGHT = love.graphics.getDimensions()
@@ -74,7 +78,7 @@ function lib:postUpdate()
 end
 
 function lib:drawScreen(canvas)
-    if not self.stage then return end -- TODO: Fix it so it doesn't call this while loading
+    if not self.enabled then return end
     love.graphics.push()
     CURRENT_WINDOW_CONTENTS = false
     SCREEN_WIDTH, SCREEN_HEIGHT = love.graphics.getDimensions()
@@ -100,6 +104,7 @@ function lib:drawScreen(canvas)
 end
 
 function lib:onKeyPressed(key)
+    if not self.enabled then return end
     return not self.game_window:isWindowFocused()
 end
 
