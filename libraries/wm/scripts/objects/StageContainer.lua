@@ -5,6 +5,7 @@ local StageContainer, super = Class(Object)
 ---@param stage Stage
 function StageContainer:init(stage, x,y)
     super.init(self, x, y)
+    stage = stage or Stage(0,0,640,480)
     self.contained_stage = stage
     self:setSize(stage:getScaledSize())
     if self.width == 0 or self.height == 0 then
@@ -27,6 +28,17 @@ function StageContainer:draw()
     self.contained_stage:draw()
     Draw.popCanvas()
     Draw.draw(canvas)
+    SCREEN_WIDTH, SCREEN_HEIGHT = w,h
+    CURRENT_WINDOW_CONTENTS = w_contents
+end
+
+function StageContainer:update()
+    local w_contents = CURRENT_WINDOW_CONTENTS
+    local w, h = SCREEN_WIDTH, SCREEN_HEIGHT
+    SCREEN_WIDTH, SCREEN_HEIGHT = self:getSize()
+    CURRENT_WINDOW_CONTENTS = self
+    super.update(self)
+    self.contained_stage:update()
     SCREEN_WIDTH, SCREEN_HEIGHT = w,h
     CURRENT_WINDOW_CONTENTS = w_contents
 end

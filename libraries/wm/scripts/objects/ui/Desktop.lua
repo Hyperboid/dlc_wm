@@ -41,9 +41,10 @@ end
 function Desktop:focusWindow(window)
     self.focused_window = window
     if not window then return end
-    window.layer = 10000
+    local prev_layer = window.layer
+    window.layer = window.layer + 10
     self:sortChildren()
-    window.layer = 0
+    window.layer = prev_layer
 end
 
 function Desktop:draw()

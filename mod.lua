@@ -13,7 +13,14 @@ function Mod:init()
         love.graphics.clear(COLORS[col_name])
         Draw.popCanvas()
     end
+    local contents = StageContainer(Stage())
+    WM.desktop:spawnWindow(Window(contents))
+    self.anotherworld = contents.contained_stage:addChild(World())
     WM.desktop:focusWindow(WM.game_window)
+end
+
+function Mod:postInit()
+    self.anotherworld:loadMap("room1")
 end
 
 function Mod:preDraw()
