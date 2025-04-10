@@ -29,6 +29,8 @@ function Mod:onDPMbStart()
     WM.game_window_contents.getTitle = function() return "" end
     WM.game_window_contents.getIcon = function() end
     self.prev_wallpaper = WM.wallpaper
+    -- TODO: Unhardcode scale values
+    self.wm_zoom = WM.stage.timer:tween(100, WM.desktop, {scale_x = 5, scale_y = 5})
     WM.wallpaper = nil
 end
 
@@ -37,4 +39,7 @@ function Mod:onDPMbEnd()
     self.prev_wallpaper = nil
     WM.game_window_contents.getTitle = nil
     WM.game_window_contents.getIcon = nil
+    WM.stage.timer:cancel(self.wm_zoom)
+    self.wm_zoom = nil
+    WM.desktop:setScale(1)
 end

@@ -4,6 +4,8 @@ local Desktop, super = Class(Object)
 
 function Desktop:init(x,y)
     super.init(self, x, y)
+    self:setScaleOrigin(.5)
+    self:setRotationOrigin(.5)
 end
 
 function Desktop:update()
