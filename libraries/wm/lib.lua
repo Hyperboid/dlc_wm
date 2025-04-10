@@ -65,7 +65,9 @@ function lib:postUpdate()
     ---@type Object|false
     CURRENT_WINDOW_CONTENTS = false
     SCREEN_WIDTH, SCREEN_HEIGHT = love.graphics.getDimensions()
+    Kristal.callEvent("preUpdateScreen")
     self.stage:update()
+    Kristal.callEvent("postUpdateScreen")
     SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
     CURRENT_WINDOW_CONTENTS = self.game_window_contents
     Kristal.showCursor()
@@ -76,8 +78,10 @@ function lib:drawScreen(canvas)
     love.graphics.push()
     CURRENT_WINDOW_CONTENTS = false
     SCREEN_WIDTH, SCREEN_HEIGHT = love.graphics.getDimensions()
+    Kristal.callEvent("preDrawScreen")
     self.stage:draw()
     Kristal.Overlay:draw()
+    Kristal.callEvent("postDrawScreen")
     SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
     CURRENT_WINDOW_CONTENTS = self.game_window_contents
     love.graphics.pop()
