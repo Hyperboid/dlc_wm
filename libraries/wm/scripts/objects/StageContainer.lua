@@ -39,6 +39,18 @@ function StageContainer:update()
     CURRENT_WINDOW_CONTENTS = self
     super.update(self)
     self.contained_stage:update()
+
+    -- TODO: fix this shit
+    if self.parent:isWindowFocused() then
+        for key, value in pairs(Input.key_pressed) do
+            if self.contained_stage.children[#self.contained_stage.children].onKeyPressed then
+                if value then
+                    self.contained_stage.children[#self.contained_stage.children]:onKeyPressed(key)
+                end
+            end
+        end
+    end
+
     SCREEN_WIDTH, SCREEN_HEIGHT = w,h
     CURRENT_WINDOW_CONTENTS = w_contents
 end
