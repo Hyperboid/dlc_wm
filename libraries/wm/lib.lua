@@ -77,6 +77,7 @@ function lib:drawScreen(canvas)
     CURRENT_WINDOW_CONTENTS = false
     SCREEN_WIDTH, SCREEN_HEIGHT = love.graphics.getDimensions()
     self.stage:draw()
+    Kristal.Overlay:draw()
     SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
     CURRENT_WINDOW_CONTENTS = self.game_window_contents
     love.graphics.pop()
