@@ -8,6 +8,8 @@ function Titlebar:init(window)
     self:setPadding(6,2)
     self.drag_start_x, self.drag_start_y = Input.getMousePosition()
     self.dragging = false
+    self.close_button = Assets.getTexture("wm/x")
+    self.close_button:setFilter("linear", "nearest")
 end
 
 function Titlebar:draw()
@@ -16,6 +18,15 @@ function Titlebar:draw()
     local icon = self.window:getIcon()
     love.graphics.push()
     love.graphics.translate(6,(self.height-34)/2)
+
+    if self.window.closable then
+        Draw.setColor(Utils.hexToRgb("#670b20"))
+    else
+        Draw.setColor(Utils.hexToRgb("#808080"))
+    end
+    Draw.draw(self.close_button, self.width-(34+6),0, 0, 32/self.close_button:getWidth(), 32/self.close_button:getHeight())
+    Draw.setColor(COLORS.white)
+
     if icon then
         Draw.draw(icon, 0,0,0, 32/icon:getWidth(), 32/icon:getHeight())
         love.graphics.translate(40,0)

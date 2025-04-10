@@ -14,6 +14,7 @@ function Window:init(contents, x,y)
     self.contents = self:addChild(contents)
     self.title = "???"
     self.debug_select = false
+    self.closable = true
     ---@type love.Image?
     self.icon = nil
 end
