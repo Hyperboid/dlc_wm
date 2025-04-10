@@ -533,7 +533,7 @@ return {
           visible = true,
           properties = {
             ["cutscene"] = "room1.wall",
-            ["once"] = true
+            ["once"] = false
           }
         },
         {

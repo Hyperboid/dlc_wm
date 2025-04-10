@@ -143,7 +143,7 @@ you.</property>
   <object id="33" name="interactable" x="280" y="80" width="40" height="40">
    <properties>
     <property name="cutscene" value="room1.wall"/>
-    <property name="once" type="bool" value="true"/>
+    <property name="once" type="bool" value="false"/>
    </properties>
   </object>
   <object id="35" name="npc" x="300" y="160">
