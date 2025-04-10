@@ -55,7 +55,7 @@ function Titlebar:update()
     super.update(self)
     local mx, my = Input.getMousePosition()
     if self.dragging then
-        self:updateDragging(mx,my)
+        self:updateDragging(self.window.desktop:getFullTransform():inverseTransformPoint(mx,my))
     end
     if Input.mousePressed(1) then
         if self.window.desktop:isHovering(self, mx,my) then
