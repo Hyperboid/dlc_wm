@@ -7,7 +7,7 @@ function Mod:init()
         local window = WM.desktop:spawnWindow(Window(CanvasContainer(canvas)), WM.game_window.x + WM.game_window.width + (16 * (i+1)), (16 * (i+1)))
         window.contents:setScale(WM.game_window.contents:getScale())
         local col_name = Utils.pick(Utils.getKeys(COLORS))
-        window.contents.getTitle = function() return col_name end
+        window.title = col_name
         table.insert(self.extra_windows, window)
         Draw.pushCanvas(canvas)
         love.graphics.clear(COLORS[col_name])
