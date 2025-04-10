@@ -40,9 +40,9 @@ function Window:onAdd(parent)
     end
 end
 
-function Window:close()
+function Window:close(reason)
     ---@diagnostic disable-next-line: undefined-field
-    if self.contents.onClose and self.contents:onClose() then return end
+    if self.contents.onClose and self.contents:onClose(reason) then return end
     self:remove()
 end
 
